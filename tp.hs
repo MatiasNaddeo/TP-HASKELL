@@ -41,13 +41,12 @@ descifrar [] _ = []
 descifrar (x:xs) n = (desplazar x (-n)) : (descifrar xs n)
 
 -- EJ 6
---cifrarLista :: [String] -> [String]
---cifrarLista x = cifrarListaAux x 0
-
---cifrarListaAux :: [String] -> [Int] -> [String]
---cifrarListaAux [] _ = []
---cifrarListaAux (x:xs) n = (cifrar x n) : (cifrarListaAux xs (n + 1))
---TIRA ERROR EL EJERCICIO 6. COMENTO PARA PODER TESTEAR
+cifrarLista :: [String] -> [String]
+cifrarLista p = cifrarListaAux p 0
+cifrarListaAux :: [String] -> Int -> [String]
+cifrarListaAux [] _ = []
+cifrarListaAux (p:rp) n = (cifrar p n):(cifrarListaAux rp (n + 1))
+--ARREGLADO
 
 -- EJ 7
 frecuencia :: String -> [Float]
@@ -122,7 +121,21 @@ duplasDescifradas (x:y:ys) n | n == 1 = duplasDescifradas (y:ys) (length (y:ys))
 
 -- EJ 11
 expandirClave :: String -> Int -> String
-expandirClave _ _ = "compucom"
+expandirClave clave n = primerosNCaracteres n (auxExpandir clave n)
+
+--repite la clave hasta alcanzar o exceder n
+auxExpandir :: String -> Int -> String
+auxExpandir clave n
+    | length clave >= n = clave
+    | otherwise = clave ++ auxExpandir clave (n - length clave)
+
+--toma los primeros n caracteres de una lista
+primerosNCaracteres :: Int -> String -> String
+primerosNCaracteres 0 _ = []
+primerosNCaracteres _ [] = []
+primerosNCaracteres n (x:xs) = x : primerosNCaracteres (n-1) xs
+
+--si alguno necesita podria ver de hacerlas genericas
 
 -- EJ 12
 cifrarVigenere :: String -> String -> String
