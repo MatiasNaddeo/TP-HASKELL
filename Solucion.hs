@@ -53,12 +53,11 @@ frecuencia _ = [16.666668,0.0,0.0,0.0,16.666668,0.0,0.0,0.0,0.0,0.0,0.0,33.33333
 
 -- Ej 8
 cifradoMasFrecuente :: String -> Int -> (Char, Float)
-cifradoMasFrecuente _ _ = ('o', 33.333336)
-cifradoMasFrecuente :: String -> Int -> (Char, Float)
-cifradoMasFrecuente (x:xs) y | (frecuencia (x:xs))[((ord x)-97)] == maximo (frecuencia (x:xs)) = (x, maximo(frecuencia (x:xs)))
+cifradoMasFrecuente [] _ = (' ', 0)
+cifradoMasFrecuente (x:xs) y | obtenerEnesimoELemento (frecuencia (x:xs)) 0 ((ord x)-97) == maximo (frecuencia (x:xs)) = (x, maximo(frecuencia (x:xs)))
                              | otherwise = cifradoMasFrecuente (xs++[x]) y
 -- el primer int siempre tiene que ser 0 para que arranque a contar desde 0
-obtenerEnesimoELemento:: [N] -> Int-> Int-> N
+obtenerEnesimoELemento:: [String] -> Int-> Int-> String
 obtenerEnesimoELemento (x:xs) z n | z==n = x
                                   | otherwise = obtenerEnesimoELemento xs (z+1) n
 -- EJ 9
