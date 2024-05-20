@@ -62,7 +62,11 @@ obtenerEnesimoELemento (x:xs) z n | z==n = x
                                   | otherwise = obtenerEnesimoELemento xs (z+1) n
 -- EJ 9
 esDescifrado :: String -> String -> Bool
-esDescifrado _ _ = False
+esDescifrado "" "" = True
+esDescifrado "" _ = False
+esDescifrado _ "" = False
+esDescifrado (x1:[]) (y1:[]) = True
+esDescifrado (x1:x2:xs) (y1:y2:ys) = (ord x1) - (ord y1) == ord(x2) - ord(y2) && esDescifrado (x2:xs) (y2:ys)
 
 -- EJ 10
 todosLosDescifrados :: [String] -> [(String, String)]
