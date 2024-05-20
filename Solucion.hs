@@ -16,7 +16,7 @@ import Data.Char
 
 -- EJ 1
 esMinuscula :: Char -> Bool
-esMinuscula _ = True
+esMinuscula x = (ord x >= 97) && (ord x <= 122) 
 
 -- EJ 2
 letraANatural :: Char -> Int
@@ -24,7 +24,11 @@ letraANatural l = ord l - 97
 
 -- EJ 3
 desplazar :: Char -> Int -> Char
-desplazar _ _ = 'd'
+desplazar x 0 = x
+desplazar x y | not (esMinuscula x) = x
+              | (ord x) + y > 122 = chr (96 - 122 + (ord x) + y) 
+              | (ord x) + y < 97 = chr (122 + y + (ord x)-96) 
+              | otherwise = chr ((ord x) + y)
 
 -- EJ 4
 cifrar :: String -> Int -> String
