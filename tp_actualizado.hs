@@ -153,4 +153,11 @@ peorCifrado _ _ = "asdef"
 
 -- EJ 15
 combinacionesVigenere :: [String] -> [String] -> String -> [(String, String)]
-combinacionesVigenere _ _ _ = [("hola", "b")]
+combinacionesVigenere [] _ _ = []
+combinacionesVigenere (m:ms) claves cifrado = sonCifradosIguales m claves cifrado ++ combinacionesVigenere ms claves cifrado
+
+--Me da las combinaciones de un msj simpre y cuando sea igual al cifrado
+sonCifradosIguales:: String -> [String] -> String -> [(String, String)]
+sonCifradosIguales _ [] _ = []
+sonCifradosIguales msj (c:cs) cifrado | cifrarVigenere msj c == cifrado = (msj,c):sonCifradosIguales msj cs cifrado
+                                      | otherwise = sonCifradosIguales msj cs cifrado
