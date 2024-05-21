@@ -1,6 +1,14 @@
 module Solucion where
 import Data.Char
 
+-- Nombre de grupo: {puntoHaskell}
+-- Integrante1: { 94479295,Gutierrez Marco}
+-- Integrante2: { 45375433,Castro Aitor}
+-- Integrante3: { 46360799,Naddeo Matias}
+-- Integrante4: { 46209093,Anllo Francisco}
+-- Integrantes que abandonaron la materia: {-}
+
+
 -- EJ 1
 esMinuscula :: Char -> Bool
 esMinuscula x = (ord x >= 97) && (ord x <= 122) 
@@ -15,7 +23,6 @@ desplazar x 0 = x
 desplazar x y | not (esMinuscula x) = x
               | y > 0 = chr (97 + mueveNVeces x y )
               | y < 0 = chr (97 + mueveNVecesNegativo x y )
-
 
 mueveNVeces::Char -> Int -> Int
 mueveNVeces x y | (letraANatural x) + y >= 26 = mueveNVeces x (y-26)
@@ -72,7 +79,7 @@ frecuenciaAux (x:xs) n (y:ys) | n == 0 = (y:ys)
                               | esMinuscula x == False = frecuenciaAux (xs) (n-1) (y:ys)
                               | otherwise = frecuenciaAux (xs ++ [x]) (n-1) (agregarFrecuencia (fromIntegral (cuantasHay x (x:xs))/fromIntegral(cuantasMinusculas (x:xs))) ((letraANatural x) + 1) (y:ys))
 
---Ej 8
+--EJ 8
 cifradoMasFrecuente :: String -> Int -> (Char, Float)
 cifradoMasFrecuente [] _ = (' ', 0)
 cifradoMasFrecuente (x:xs) y | obtenerEnesimoElemento (frecuencia (x:xs)) ((ord x) - 96) == maximo (frecuencia (x:xs)) = (desplazar x y, maximo(frecuencia (x:xs)))
