@@ -149,7 +149,28 @@ descifrarVigenere (x:xs) (y:ys) | length (x:xs) /= length (y:ys) = descifrarVige
 
 -- EJ 14
 peorCifrado :: String -> [String] -> String
-peorCifrado _ _ = "asdef"
+peorCifrado s claves = minima (obtenerDistancias s claves)
+
+-- Función auxiliar para obtener las distancias entre el mensaje original y sus cifrados, devuelve lista de duplas de la forma (distancia, cifrado)
+obtenerDistancias :: String -> [String] -> [(Int, String)]
+obtenerDistancias _ [] = []
+obtenerDistancias s (clave:xs) = (distancia s (cifrarVigenere s clave), clave) : obtenerDistancias s xs
+
+--elije la dupla que menos distancia tiene y devuelve la clave
+minima :: [(Int, String)] -> String
+minima [(d,c)] = c
+minima ((d1, c1) : (d2, c2) : xs)
+    | d1 <= d2 = minima ((d1, c1) : xs)
+    | otherwise = minima ((d2, c2) : xs)
+
+--calcula distancias como dice en la consigna
+distancia :: String -> String -> Int
+distancia [] [] = 0
+distancia (x:xs) (y:ys) 
+    | x >= y = (letraANatural x - letraANatural y) + distancia xs ys
+    | otherwise = (letraANatural y - letraANatural x) + distancia xs ys
+--nota: se puede usar abs?
+-- pq en ese caso queda: = abs (letraANatural x - letraANatural y) + distancia xs ys 
 
 -- EJ 15
 combinacionesVigenere :: [String] -> [String] -> String -> [(String, String)]
