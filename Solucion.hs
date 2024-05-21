@@ -78,11 +78,15 @@ expandirClave _ _ = "compucom"
 
 -- EJ 12
 cifrarVigenere :: String -> String -> String
-cifrarVigenere _ _ = "kdueciirqdv"
+cifrarVigenere "" _ = ""
+cifrarVigenere (x:xs) (y:ys) | length (x:xs) /= length (y:ys) = cifrarVigenere (x:xs) (expandirClave (y:ys) (length (x:xs)))
+                             | otherwise = (head (cifrar [x] ((ord y) - 97))) : (cifrarVigenere xs ys)
 
 -- EJ 13
 descifrarVigenere :: String -> String -> String
-descifrarVigenere _ _ = "computacion"
+descifrarVigenere "" _ = ""
+descifrarVigenere (x:xs) (y:ys) | length (x:xs) /= length (y:ys) = descifrarVigenere (x:xs) (expandirClave (y:ys) (length (x:xs)))
+                                | otherwise = (head (cifrar [x] (123 -(ord y)))):(descifrarVigenere xs ys)
 
 -- EJ 14
 peorCifrado :: String -> [String] -> String
