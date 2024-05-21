@@ -26,9 +26,18 @@ letraANatural l = ord l - 97
 desplazar :: Char -> Int -> Char
 desplazar x 0 = x
 desplazar x y | not (esMinuscula x) = x
-              | (ord x) + y > 122 = chr (96 - 122 + (ord x) + y) 
-              | (ord x) + y < 97 = chr (122 + y + (ord x) - 96) 
-              | otherwise = chr ((ord x) + y)
+              | y > 0 = chr (97 + mueveNVeces x y )
+              | y < 0 = chr (122 + mueveNVecesNegativo x y )
+
+
+mueveNVeces::Char -> Int -> Int
+mueveNVeces x y | (letraANatural x) + y >= 26 = mueveNVeces x (y-26)
+                   | otherwise = (letraANatural x) + y 
+
+mueveNVecesNegativo::Char -> Int -> Int
+mueveNVecesNegativo x y | (letraANatural x) + y <= -26 = mueveNVecesNegativo x (y+26)
+                        | letraANatural x + y == 0 = - 25
+                        | otherwise = (letraANatural x) + y + 1
 
 -- EJ 4
 cifrar :: String -> Int -> String
