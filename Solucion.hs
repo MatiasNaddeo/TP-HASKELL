@@ -101,8 +101,12 @@ esDescifrado :: String -> String -> Bool
 esDescifrado "" "" = True
 esDescifrado "" _ = False
 esDescifrado _ "" = False
-esDescifrado (x1:[]) (y1:[]) = True
-esDescifrado (x1:x2:xs) (y1:y2:ys) = (ord x1) - (ord y1) == ord(x2) - ord(y2) && esDescifrado (x2:xs) (y2:ys)
+esDescifrado (x:xs) (y:ys) | length (x:xs) /= length (y:ys) = False 
+                           | ord x <= ord y && esMinuscula x && esMinuscula y &&  cifrar xs ((ord y) - (ord x)) == ys = True
+                           | ord x > ord y && esMinuscula x && esMinuscula y &&  cifrar xs (26 - (ord x) + (ord y)) == ys = True
+                           | esMinuscula x && esMinuscula y = False
+                           | x==y = esDescifrado xs ys
+                           | otherwise = False
 
 -- EJ 10
 todosLosDescifrados :: [String] -> [(String, String)]
